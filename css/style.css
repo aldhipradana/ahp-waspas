@@ -1,0 +1,24 @@
+.btnNext
+{
+    width: 50%;
+    border-radius: 1rem;
+    padding: 1.5%;
+    border: 2px solid #fff;
+    color: white;
+    background: none;
+    cursor: pointer;
+    margin-right: 6%;
+    margin-top: 4%;
+    font-style: bold;
+    font-size: 20px
+}
+
+.register{
+    background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+    margin-top: 3%;
+    padding: 3%;
+    border-radius: 2.5rem;
+}
+.text{
+  color: white;
+}
