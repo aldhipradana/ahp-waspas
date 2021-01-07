@@ -7,7 +7,7 @@
     $_SESSION['n_criteria'] = $_POST['n_criteria'];
     $_SESSION['n_subject'] = $_POST['n_subject'];
     
-    header('Location: step1.php');
+    header('Location: namaKriteria.php');
   }
 ?>
 <!DOCTYPE html>
@@ -27,7 +27,7 @@
     <div class="row justify-content-center register-form">
       <div class="col-md-12">
         <form method="POST" target="_self">
-          <h3 class="text">WASPAS</h3>
+          <h3 class="text">AHP - WASPAS</h3>
           <div class="form-group">
             <label class="text">Masukkan jumlah kriteria</label>
             <input type="number" class="form-control" name="n_criteria" required>

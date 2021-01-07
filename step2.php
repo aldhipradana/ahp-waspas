@@ -2,15 +2,15 @@
   session_start();
 
   if(!isset($_SESSION['criteria'])){
-    header('Location: step1.php');
+    header('Location: namaKriteria.php');
   }
 
   $n_criteria = $_SESSION['n_criteria'];
   $n_subject = $_SESSION['n_subject'];
 
   $criteria = $_SESSION['criteria'];
-  $weight = $_SESSION['weight'];
-  $type = $_SESSION['type'];
+  // $weight = $_SESSION['weight'];
+  // $type = $_SESSION['type'];
 
   if(isset($_POST['button'])){
     $_SESSION['subject'] = $_POST['subject'];
