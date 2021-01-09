@@ -10,7 +10,6 @@
   $n_subject = $_SESSION['n_subject'];
   $criteria = $_SESSION['criteria'];
   $weight = $_SESSION['weight'];
-  $type = $_SESSION['type'];
   $subject = $_SESSION['subject'];
   $value = $_SESSION['value'];
   $limit = array();
@@ -19,45 +18,23 @@
   // Normalisasi matriks
   // a.) Mencari nilai minimal atau maksimal sesuai tipe 
   for($i=0; $i<$n_criteria; $i++){
-    if($type[$i] == "benefit"){
-      $max = $value[$i];
+    $max = $value[$i];
       
-      for($j=0; $j<$n_subject * $n_criteria; $j+=$n_criteria){
-        $index = $j + $i;
-        if($max < $value[$index]){
-          $max = $value[$index];
-        }
+    for($j=0; $j<$n_subject * $n_criteria; $j+=$n_criteria){
+      $index = $j + $i;
+      if($max < $value[$index]){
+        $max = $value[$index];
       }
-
-      $limit[$i] = $max;
-    } 
-    else if($type[$i] == "cost"){
-      $min = $value[$i];
-
-      for($j=0; $j<$n_subject * $n_criteria; $j+=$n_criteria){
-        $index = $j + $i;
-        if($min > $value[$index]){
-          $min = $value[$index];
-        }
-      }
-
-      $limit[$i] = $min;
     }
+
+    $limit[$i] = $max;
   }
 
   // b.) Menghitung normalisasi
   for($i=0; $i<$n_criteria; $i++){
-    if($type[$i] == "benefit"){
-      for($j=0; $j<$n_subject * $n_criteria; $j+=$n_criteria){
-        $index = $j + $i;
-        $value[$index] = $value[$index] / $limit[$i];
-      }
-    } 
-    else if($type[$i] == "cost"){
-      for($j=0; $j<$n_subject * $n_criteria; $j+=$n_criteria){
-        $index = $j + $i;
-        $value[$index] = $limit[$i] / $value[$index];
-      }
+    for($j=0; $j<$n_subject * $n_criteria; $j+=$n_criteria){
+      $index = $j + $i;
+      $value[$index] = $value[$index] / $limit[$i];
     }
   }
 
@@ -67,7 +44,7 @@
     $row = 0;
     for($j=0; $j<$n_criteria; $j++){
       $index = $j + ($i * $n_criteria);
-      $col = $value[$index] * $weight[$j] / 100;
+      $col = $value[$index] * $weight[$j+1] / 100;
       $row += $col;
      
     }
@@ -78,7 +55,7 @@
     $row = 1;
     for($j=0; $j<$n_criteria; $j++){
       $index = $j + ($i * $n_criteria);
-      $col = pow($value[$index], ($weight[$j] / 100));
+      $col = pow($value[$index], ($weight[$j+1] / 100));
       $row *= $col;
     }
     $Q[$i] = 0.5 * $row + $Q[$i];

@@ -1,15 +1,4 @@
-<?php
-  session_start();
-  session_destroy();
-  session_start();
 
-  if(isset($_POST['button'])){
-    $_SESSION['n_criteria'] = $_POST['n_criteria'];
-    $_SESSION['n_subject'] = $_POST['n_subject'];
-    
-    header('Location: namaKriteria.php');
-  }
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,6 +12,26 @@
 </head>
 
 <body style="background-color:white;">
+<?php
+  session_start();
+  session_destroy();
+  session_start();
+
+  if(isset($_POST['button'])){
+
+    $n_criteria = $_POST['n_criteria'];
+
+    if( ($n_criteria > 2) && ($n_criteria < 5) ){
+      $_SESSION['n_subject'] = $_POST['n_subject'];
+      $_SESSION['n_criteria'] = $_POST['n_criteria'];
+      
+      header('Location: namaKriteria.php');
+    }else{
+
+      echo "<script>alert('PEPEK')</script>";      
+    }
+  }
+?>
   <div class="container register">
     <div class="row justify-content-center register-form">
       <div class="col-md-12">

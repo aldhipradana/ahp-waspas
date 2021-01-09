@@ -9,8 +9,7 @@
   $n_subject = $_SESSION['n_subject'];
 
   $criteria = $_SESSION['criteria'];
-  // $weight = $_SESSION['weight'];
-  // $type = $_SESSION['type'];
+  $weight = $_SESSION['weight'];
 
   if(isset($_POST['button'])){
     $_SESSION['subject'] = $_POST['subject'];

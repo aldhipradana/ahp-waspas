@@ -9,9 +9,48 @@
   $criteria = $_SESSION['criteria'];
 
   if(isset($_POST['button'])){
+
+    $_SESSION['weight'] = $_POST['weight'];
+
+    $weight = $_SESSION['weight'];
+
+
+    foreach($weight as $key => $value){
+      $total[$key] = 0;
+
+      foreach($value as $key1 => $value1){
+
+        if(!isset($sum[$key1])){
+          $sum[$key1] = 0;
+        }
+      
+        $sum[$key1] += $value1;
+
+      }
+    }
+
+   
+    $mysum = array();
+    for( $i=1; $i<= $n_criteria; $i++){
+      $mysum[$i] = $sum[$i];
+    }
+    foreach($weight as $key => $value){
+     foreach($value as $key1 => $value1){
+
+        $hasil[$key1] = ($value1 / $mysum[$key1]); 
+        $total[$key] += ($value1 / $mysum[$key1]); 
+        
+      }
+        $total[$key] = $total[$key] / $n_criteria; 
+
+    }
     
+    $_SESSION['weight'] = $total;
+    print_r($_SESSION['weight']);
 
     header('Location: step2.php');
+
+
   }
 ?>
 <!DOCTYPE html>
@@ -50,11 +89,11 @@
                 ++$colCount;
                     if( $rowCount === $colCount){
                         ?> 
-                            <td> <input type="number" class="form-control <?php echo"row".$rowCount." col".$colCount; ?>" name="n_criteria" placeholder="1" value="1" disabled > </td> 
+                            <td> <input type="text" class="form-control <?php echo"row".$rowCount." col".$colCount; ?>" name="weight[<?=  $rowCount; ?>][<?=  $colCount; ?>]" placeholder="1" value="1" > </td> 
                         <?php
                     }else{
                         ?> 
-                            <td> <input type="number" class="form-control <?php echo"row".$rowCount." col".$colCount; ?>" name="n_criteria" required> </td>
+                            <td> <input type="text" class="form-control <?php echo"row".$rowCount." col".$colCount; ?>" name="weight[<?=  $rowCount; ?>][<?=  $colCount; ?>]"> </td>
                         <?php
                     }
                 }
