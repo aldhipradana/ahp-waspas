@@ -40,13 +40,13 @@
               <tr>
                 <?php for($j=0; $j<$n_criteria + 1; $j++) { ?>
                   <?php if($i==0 && $j==0) { ?>
-                    <th>Subjek</th>
+                    <th style="text-align: center;">Subjek</th>
                   <?php } else if($i==0) { ?>
-                    <th><?php echo $criteria[$j - 1] ?></th>
+                    <th style="text-align: center;"><?php echo $criteria[$j - 1] . ' - ' . round($weight[$j] * 100) . '%' ?></th>
                   <?php } else if($j==0) {?>
-                    <td><input name="subject[]" class="form-control" type="text" required></td>
+                    <td><input name="subject[<?php echo $i ?>]" class="form-control" type="text" required></td>
                   <?php } else {?>
-                    <td><input name="value[]" class="form-control" type="number" required></td>
+                    <td><input name="value[<?php echo $j ?>][<?php echo $i ?>]" class="form-control" type="number" required></td>
                   <?php } ?>
                 <?php } ?>
               </tr>
