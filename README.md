@@ -19,7 +19,7 @@ Menghitung Hasil Perhitungan SPK menggunakan Presentase AHP dan Metode WASPAS be
 Tentu sadja *Pull Request*. Tapi bagi kalian yang datang kesini untuk *clone* (baca: __maling__) sadja djuga gpp. (Ya paling ngga bagi star ya h3h3)
 
 ## Link Live Site
-<a target="_blank" href="https://pokemon-ahp-waspas.herokuapp.com/">Live Site Borrr</a>
+<a href="https://pokemon-ahp-waspas.herokuapp.com/" target="_blank">Live Site Borrr</a>
 
 
 ## Contributors
