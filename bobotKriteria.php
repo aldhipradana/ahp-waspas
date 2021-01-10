@@ -18,7 +18,10 @@ if (isset($_POST['button'])) {
   foreach ($weight as $n_row => $row) {
     foreach ($row as $n_column => $value) {
       // auto fill missing value to 1/reversed matrix
-      if (empty($weight[$n_row][$n_column])) {
+      if (empty($weight[$n_row][$n_column]) && empty($weight[$n_column][$n_row])) {
+        header('Location: bobotKriteria.php');
+        die();
+      } else if (empty($weight[$n_row][$n_column])) {
         $converted_weight[$n_row][$n_column] = 1 / $weight[$n_column][$n_row];
       } else {
         $converted_weight[$n_row][$n_column] = $value;
