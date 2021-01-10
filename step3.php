@@ -14,59 +14,60 @@
   $value = $_SESSION['value'];
   $limit = array();
   $Q = array();
+  $rank = 1;
+
+  // echo 'value <pre>';
+  // print_r($value);
+  // echo '</pre>';
 
   // Normalisasi matriks
   // a.) Mencari nilai minimal atau maksimal sesuai tipe 
-  for($i=0; $i<$n_criteria; $i++){
-    $max = $value[$i];
-      
-    for($j=0; $j<$n_subject * $n_criteria; $j+=$n_criteria){
-      $index = $j + $i;
-      if($max < $value[$index]){
-        $max = $value[$index];
-      }
-    }
-
-    $limit[$i] = $max;
+  $max_value = [];
+  foreach ($value as $crit => $alternative) {
+    $max_value[$crit] = max($alternative);
   }
+
+  // echo 'max <pre>';
+  // print_r($max_value);
+  // echo '</pre>';
 
   // b.) Menghitung normalisasi
-  for($i=0; $i<$n_criteria; $i++){
-    for($j=0; $j<$n_subject * $n_criteria; $j+=$n_criteria){
-      $index = $j + $i;
-      $value[$index] = $value[$index] / $limit[$i];
+  $normalized_alternatives = [];
+  foreach ($value as $crit => $alternative) {
+    foreach ($alternative as $alt => $val) {
+      $normalized_alternatives[$alt][$crit] = $val / $max_value[$crit];
     }
   }
+
+  // echo 'normalized <pre>';
+  // print_r($normalized_alternatives);
+  // echo '</pre>';
+
+  // echo 'weight <pre>';
+  // print_r($weight);
+  // echo '</pre>';
 
   // c.) Menghitung Qi
-  for($i=0; $i<$n_subject; $i++){
-    // step 1
-    $row = 0;
-    for($j=0; $j<$n_criteria; $j++){
-      $index = $j + ($i * $n_criteria);
-      $col = $value[$index] * $weight[$j+1] / 100;
-      $row += $col;
-     
-    }
+  $final_alternative = [];
+  foreach ($normalized_alternatives as $n_alt => $alternative) {
+    $alt_name = $subject[$n_alt];
+    $final_alternative[$alt_name] = 0;
 
-    $Q[$i] = 0.5 * $row;
-
-    // step 2
-    $row = 1;
-    for($j=0; $j<$n_criteria; $j++){
-      $index = $j + ($i * $n_criteria);
-      $col = pow($value[$index], ($weight[$j+1] / 100));
-      $row *= $col;
+    foreach ($alternative as $criteria => $value) {
+      $final_alternative[$alt_name] += $value * $weight[$criteria];
     }
-    $Q[$i] = 0.5 * $row + $Q[$i];
   }
+
+  // echo 'result <pre>';
+  // print_r($final_alternative);
+  // echo '</pre>';
+
+  // echo 'subject <pre>';
+  // print_r($subject);
+  // echo '</pre>';
 
   // d.) Mengurutkan berdasarkan nilai terbesar
-  for($i=0; $i<$n_subject; $i++){
-    $Q[$i] = array($Q[$i], $subject[$i]);
-  }
-
-  sort($Q);
+  arsort($final_alternative);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -91,13 +92,13 @@
               <th>Nilai</th>
               <th>Peringkat</th>
             </tr>
-            <?php for($i = $n_subject-1; $i >= 0; $i--){ ?>
+            <?php foreach ($final_alternative as $key => $value) { ?>
               <tr style="text-align:center;">
-                <td><?php echo $Q[$i][1]; ?></td>
-                <td><?php echo $Q[$i][0]; ?></td>
-                <td><?php echo $n_subject - $i; ?></td>
+                <td><?php echo $key; ?></td>
+                <td><?php echo number_format($value, 4); ?></td>
+                <td><?php echo $rank; ?></td>
               </tr>
-            <?php } ?>
+            <?php $rank++; } ?>
           </table>
           <a href="index.php" style="color:white;"><button class="btnNext" type="button">Hitung Lagi</button></a>
         </form>
