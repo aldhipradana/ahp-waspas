@@ -9,6 +9,15 @@
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
   <title>Aplikasi SPK</title>
+  <style>
+
+h2 {
+  background-image: linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding:10px 0px;
+}
+  </style>
 </head>
 
 <body style="background-color:white;">
@@ -18,20 +27,16 @@
   session_start();
 
   if(isset($_POST['button'])){
-
     $n_criteria = $_POST['n_criteria'];
-
     if( ($n_criteria > 2) && ($n_criteria < 5) ){
       $_SESSION['n_subject'] = $_POST['n_subject'];
       $_SESSION['n_criteria'] = $_POST['n_criteria'];
-      
       header('Location: namaKriteria.php');
-    }else{
-
-      echo "<script>alert('PEPEK')</script>";      
     }
   }
 ?>
+<marquee> <h2>Selamat Datang Di Aplikasi SPK Dengan Metode AHP-WASPAS</h2></marquee>
+<img src="img.gif" style="display:block;margin:0px auto 20px !important;">
   <div class="container register">
     <div class="row justify-content-center register-form">
       <div class="col-md-12">
