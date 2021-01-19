@@ -30,5 +30,5 @@ Gede Aldhi Pradana <br/>
 And __You__.
 
 ## Final Words
-Be A Very Best Person Like No One Ever Was !!!<br/>
+Be A Very Best Person Like No One Ever Was !!!<br/><br/>
 ![alt text](https://media2.giphy.com/media/42wQXwITfQbDGKqUP7/giphy.gif)
